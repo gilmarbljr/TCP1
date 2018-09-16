@@ -1,20 +1,26 @@
 package concessionaria.ui.text;
 
+import concessionaria.business.domain.Loja;
 import concessionaria.ui.ConcessionariaInterface;
 import concessionaria.ui.InterfaceOperacoes;
 import concessionaria.ui.text.command.Comando;
 
 public abstract class ConcessionariaTextInterface extends ConcessionariaInterface {
 
+	protected ConcessionariaTextInterface(Loja loja) {
+		super(loja);
+	}
+
 	public static final String FECHAR = "Q";
 	
 	@Override
 	public void criarMostrarInterface() {
-		System.out.println(getMenu());
+		UIUtils uiUtils = UIUtils.INSTANCE;
 		String comandoChave = null;
 		do{
 			System.out.println();
 			System.out.println(getMenu());
+			comandoChave = uiUtils.readString();
 			Comando comando = (Comando) acoes.get(comandoChave);
 			if(comando != null) {
 				try {
@@ -26,6 +32,7 @@ public abstract class ConcessionariaTextInterface extends ConcessionariaInterfac
 			}
 		}
 		while(!FECHAR.equals(comandoChave));
+		System.out.println("Bye!");
 	}
 	
 	private String getMenu() {

@@ -24,9 +24,9 @@ public abstract class Automovel {
 		this.ano = ano;
 	}
 	
-	public Automovel(String nome, int ano) {
+	public Automovel(String nome, int ano, String placa) {
 		this.nome = nome;
-		this.placa = null;
+		this.placa = placa;
 		this.ano = ano;
 	}
 }

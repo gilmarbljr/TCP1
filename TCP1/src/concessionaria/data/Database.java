@@ -1,5 +1,6 @@
 package concessionaria.data;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class Database {
 	private final Map<String, Cliente> clientes;
 	private final Map<String, Carro> carros;
 	private final Map<String, Moto> motos;
-	private final Loja loja;
+	private final Map<Integer, Loja> lojas;
 	
 	public Database() {
 		this(true);
@@ -26,7 +27,7 @@ public class Database {
 		this.clientes = new HashMap<>();
 		this.carros = new HashMap<>();
 		this.motos = new HashMap<>();
-		this.loja = new Loja();
+		this.lojas = new HashMap<>();
 		
 		
 		if(iniciar) {
@@ -46,6 +47,17 @@ public class Database {
 	public Collection<Moto> getAllMotos(){
 		return this.motos.values();
 	}
+	public Collection<Loja> getAllLojas(){
+		return this.lojas.values();
+	}
+	
+	public ArrayList<Carro> getListCarros(){
+		ArrayList<Carro> lista = new ArrayList<>(this.getAllCarros().size());
+		for (Carro carro : this.getAllCarros()) {
+			lista.add(carro);
+		}
+		return lista;
+	}
 	
 	public Funcionario getFuncionario(String nome) {
 		return funcionarios.get(nome);
@@ -59,8 +71,8 @@ public class Database {
 	public Moto getMoto(String placa) {
 		return motos.get(placa);
 	}
-	public Loja getLoja() {
-		return this.loja;
+	public Loja getLoja(int id) {
+		return lojas.get(id);
 	}
 	
 	public void save(Funcionario funcionario) {
@@ -76,6 +88,36 @@ public class Database {
 		this.motos.put(moto.getPlaca(),moto);
 	}
 	
+	public void save(Loja loja) {
+		this.lojas.put(loja.getId(), loja);
+	}
+	
 	public void iniciarDados() {
+		try {
+			
+			// Lojas
+			int oldID = 0;
+			Loja l1 = new Loja(++oldID, "Loja Principal");
+			save(l1);
+			
+			//Clientes
+			oldID = 0;
+			Cliente c1 = new Cliente(l1.getNome(), 0, ++oldID);
+			save(c1);
+			
+			//Carros
+			int portas = 4;
+			int ano = 2018;
+			int valor = 10000;
+			Carro ca1 = new Carro("Uno", ano, portas, valor,"ABC0001");
+			save(ca1);
+			Carro ca2 = new Carro("Palio", ano, portas, valor,"ABC0002");
+			save(ca2);
+			Carro ca3 = new Carro("Versa", ano, portas, valor,"ABC0003");
+			save(ca3);
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 }
