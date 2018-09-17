@@ -24,4 +24,9 @@ public class FabricarAutomovelCommand extends Comando{
 			System.out.println();
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "Fabricar Automóvel";
+	}
 }

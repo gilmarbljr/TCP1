@@ -20,5 +20,10 @@ public class SaldoConcessionariaCommand extends Comando{
 		Double saldo = operacoes.getSaldo(clienteLoja);
 		System.out.println("Saldo: "+ saldo);
 	}
+	
+	@Override
+	public String toString() {
+		return "Exibir Saldo da Loja";
+	}
 
 }

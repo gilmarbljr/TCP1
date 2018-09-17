@@ -18,5 +18,10 @@ public class AdicionaClientesCommand extends Comando{
 		Cliente cliente = gerenciamento.adicionaCliente();
 		System.out.println("\nCliente cadastrado com sucesso!\n"+cliente.toString());
 	}
+	
+	@Override
+	public String toString() {
+		return "Adicionar Cliente";
+	}
 
 }
