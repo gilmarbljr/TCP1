@@ -5,8 +5,11 @@ import java.util.Date;
 
 import concessionaria.business.Operacoes;
 import concessionaria.business.ValoresException;
+import concessionaria.business.domain.Venda;
 import concessionaria.business.domain.Automovel;
 import concessionaria.business.domain.Carro;
+import concessionaria.business.domain.Cliente;
+import concessionaria.business.domain.Funcionario;
 import concessionaria.business.domain.Loja;
 import concessionaria.business.domain.Moto;
 import concessionaria.data.Database;
@@ -149,6 +152,59 @@ public class OperacoesImpl implements Operacoes {
 	
 	private void descontar(Automovel auto,int desconto) {
 		auto.setValor(auto.getValor()*((100.0 - desconto)/100.0));
+	}
+
+	@Override
+	public Venda efetuarVenda(Loja loja) {
+		UIUtils uiUtils = UIUtils.INSTANCE;
+		Venda venda = null;
+		Cliente clienteLoja = database.getCliente(loja.getNome());
+		if (clienteLoja instanceof Cliente) {
+			System.out.print("Informe o vendedor: ");
+			String vendedor = uiUtils.readString();
+			Funcionario funcionario = database.getFuncionario(vendedor);
+			if (funcionario instanceof Funcionario) {
+				System.out.print("Informe o comprador: ");
+				String comprador = uiUtils.readString();
+				Cliente cliente = database.getCliente(comprador);
+				if (cliente instanceof Cliente) {
+					Automovel auto = selecionarAutomovel(cliente);
+					try {
+						cliente.compra(loja, auto.getValor());
+						venda = new Venda(cliente, auto.getValor(), loja);
+						clienteLoja.venda(loja, auto.getValor());
+						funcionario.incrementaVendas();
+					} catch (ValoresException e) {
+						System.out.println(e.getMessage());
+					}
+				}
+			}
+		}
+		return venda;
+	}
+	
+	private Automovel selecionarAutomovel(Cliente cliente) {
+		UIUtils uiUtils = UIUtils.INSTANCE;
+		ArrayList<Automovel> autos = new ArrayList<>();
+		for (Carro carro : database.getAllCarros()) {
+			if (cliente.getMontante() >= carro.getValor()) {
+				autos.add(carro);
+			}
+		}
+		for(Moto moto : database.getAllMotos()) {
+			if(cliente.getMontante() >= moto.getValor()) {
+				autos.add(moto);
+			}
+		}
+		
+		int opcao = 0;
+		System.out.println("\n0 - Cancelar");
+		for (Automovel auto : autos) {
+			System.out.println(++opcao + " - "+auto.getNome()+" "+auto.getAno()+" "+auto.getValor()+"");
+		}
+		System.out.print("Digite a opcao de compra: ");
+		opcao = uiUtils.readInteger();
+		return autos.get(opcao-1);
 	}
 	
 }

@@ -16,7 +16,12 @@ public class AdicionaClientesCommand extends Comando{
 	@Override
 	public void execute() throws Exception {
 		Cliente cliente = gerenciamento.adicionaCliente();
-		System.out.println("\nCliente cadastrado com sucesso!\n"+cliente.toString());
+		if (cliente instanceof Cliente) {
+			System.out.println("\nCliente cadastrado com sucesso!\n"+cliente.toString());
+		}
+		else {
+			System.out.println("\nErro ao cadastrar novo cliente!");
+		}
 	}
 	
 	@Override

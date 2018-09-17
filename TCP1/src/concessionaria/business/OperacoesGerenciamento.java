@@ -2,6 +2,7 @@ package concessionaria.business;
 
 import concessionaria.business.domain.Carro;
 import concessionaria.business.domain.Cliente;
+import concessionaria.business.domain.Funcionario;
 import concessionaria.business.domain.Loja;
 import concessionaria.business.domain.Moto;
 
@@ -12,4 +13,5 @@ public interface OperacoesGerenciamento {
 	public Moto atualizaMoto();
 	public Loja atualizaLoja();
 	public Cliente atualizaSaldoLoja();
+	public Funcionario cadastrarFuncionario();
 }

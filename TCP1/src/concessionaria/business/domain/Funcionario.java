@@ -24,5 +24,9 @@ public class Funcionario extends Pessoa{
 	public void incrementaVendas(int vendas) {
 		this.vendas = this.vendas + vendas;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Nome: "+getNome()+"\nIdade: "+getIdade()+"\nVendas: "+getVendas();
+	}
 }
