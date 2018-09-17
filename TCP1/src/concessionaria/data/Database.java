@@ -1,6 +1,5 @@
 package concessionaria.data;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,14 +50,6 @@ public class Database {
 		return this.lojas.values();
 	}
 	
-	public ArrayList<Carro> getListCarros(){
-		ArrayList<Carro> lista = new ArrayList<>(this.getAllCarros().size());
-		for (Carro carro : this.getAllCarros()) {
-			lista.add(carro);
-		}
-		return lista;
-	}
-	
 	public Funcionario getFuncionario(String nome) {
 		return funcionarios.get(nome);
 	}
@@ -92,6 +83,22 @@ public class Database {
 		this.lojas.put(loja.getId(), loja);
 	}
 	
+	public void removeCliente(String nome) {
+		this.clientes.remove(nome);
+	}
+	public void removeCarro(String placa) {
+		this.carros.remove(placa);
+	}
+	public void removeMoto(String placa) {
+		this.motos.remove(placa);
+	}
+	public void removeFuncionario(String nome) {
+		this.funcionarios.remove(nome);
+	}
+	public void removeLoja(int id) {
+		this.lojas.remove(id);
+	}
+	
 	public void iniciarDados() {
 		try {
 			
@@ -106,14 +113,15 @@ public class Database {
 			save(c1);
 			
 			//Carros
+			oldID = 0;
 			int portas = 4;
 			int ano = 2018;
 			int valor = 10000;
-			Carro ca1 = new Carro("Uno", ano, portas, valor,"ABC0001");
+			Carro ca1 = new Carro("Uno", ano, portas, valor,"LOJA"+ (++oldID));
 			save(ca1);
-			Carro ca2 = new Carro("Palio", ano, portas, valor,"ABC0002");
+			Carro ca2 = new Carro("Palio", ano, portas, valor,"LOJA" + (++oldID));
 			save(ca2);
-			Carro ca3 = new Carro("Versa", ano, portas, valor,"ABC0003");
+			Carro ca3 = new Carro("Versa", ano, portas, valor,"LOJA" + (++oldID));
 			save(ca3);
 		}
 		catch (Exception e) {

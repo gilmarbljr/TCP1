@@ -26,4 +26,9 @@ public class Moto extends Automovel{
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
+	
+	@Override
+	public String toString() {
+		return "Placa: "+getPlaca()+"\nNome: "+getNome()+"\nAno: "+getAno()+"\nRodas: "+getRodas()+"\nValor: "+getValor();
+	}
 }

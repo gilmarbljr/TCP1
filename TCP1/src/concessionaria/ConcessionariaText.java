@@ -1,6 +1,7 @@
 package concessionaria;
 
 import concessionaria.business.domain.Loja;
+import concessionaria.business.impl.OperacoesGerenciamentoImpl;
 import concessionaria.business.impl.OperacoesImpl;
 import concessionaria.ui.ConcessionariaInterface;
 import concessionaria.ui.text.LojaInterface;
@@ -38,8 +39,8 @@ public class ConcessionariaText extends Concessionaria {
 	}
 
 	@Override
-	public ConcessionariaInterface createLojaInterface(Loja loja, OperacoesImpl impl) {
-		return new LojaInterface(loja, impl);
+	public ConcessionariaInterface createLojaInterface(Loja loja, OperacoesImpl impl, OperacoesGerenciamentoImpl gerenciamentoImpl) {
+		return new LojaInterface(loja, impl,gerenciamentoImpl);
 	}
 
 }

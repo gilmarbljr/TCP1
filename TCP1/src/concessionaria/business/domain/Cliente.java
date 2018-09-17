@@ -86,11 +86,20 @@ public class Cliente extends Pessoa {
 		this.montante += valor;
 	}
 	
+	public void setMontante(double montante) {
+		this.montante = montante;
+	}
+	
 	private boolean isValidAmout(double valor) {
 		return valor > 0;
 	}
 	
 	private boolean hasEnoughBalance(double valor) {
 		return valor <= this.montante;
+	}
+	
+	@Override
+	public String toString() {
+		return "Cadastro: "+getCadastro()+"\nNome: "+getNome()+"\nIdade: "+ getIdade()+"\nSaldo: "+getMontante();
 	}
 }
