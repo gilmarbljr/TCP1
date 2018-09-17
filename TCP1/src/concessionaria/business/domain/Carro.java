@@ -2,12 +2,10 @@ package concessionaria.business.domain;
 
 public class Carro extends Automovel{
 	private int portas;
-	private double valor;
 	
 	public Carro(String nome, int ano, int portas, double valor, String placa) {
-		super(nome, ano, placa);
+		super(nome, ano, placa, valor);
 		this.setPortas(portas);
-		this.valor = valor;
 	}
 
 	public int getPortas() {
@@ -16,14 +14,6 @@ public class Carro extends Automovel{
 
 	public void setPortas(int portas) {
 		this.portas = portas;
-	}
-
-	public double getValor() {
-		return valor;
-	}
-
-	public void setValor(double valor) {
-		this.valor = valor;
 	}
 	
 	@Override

@@ -11,7 +11,7 @@ public abstract class ConcessionariaTextInterface extends ConcessionariaInterfac
 		super(loja);
 	}
 
-	public static final String FECHAR = "Q";
+	public static final String FECHAR = "0";
 	
 	@Override
 	public void criarMostrarInterface() {
@@ -32,17 +32,17 @@ public abstract class ConcessionariaTextInterface extends ConcessionariaInterfac
 			}
 		}
 		while(!FECHAR.equals(comandoChave));
-		System.out.println("Bye!");
+		System.out.println();
 	}
 	
 	private String getMenu() {
 		StringBuffer string = new StringBuffer();
+		string.append("0 - Sair\n");
 		for (String chave : acoes.keySet()) {
 			InterfaceOperacoes interfaceOperacoes = acoes.get(chave);
 			string.append(chave)
 			.append(" - ")
-			.append(interfaceOperacoes.getClass()
-								.getSimpleName()).append("\n");
+			.append(interfaceOperacoes.toString()).append("\n");
 		}
 		string.append("Escolha a acao: ");
 		return string.toString();

@@ -11,6 +11,7 @@ public class ConcessionariaText extends Concessionaria {
 
 	private String getMenu() {
 		StringBuffer sb = new StringBuffer();
+		sb.append("0 - Sair\n");
 		for (int i = 0; i < concessionariaInterfaces.size(); i++) {
 			ConcessionariaInterface ci = concessionariaInterfaces.get(i);
 			sb.append(i + 1).append(" - ");
@@ -19,14 +20,14 @@ public class ConcessionariaText extends Concessionaria {
 				sb.append("\n");
 			}
 		}
-		sb.append("Escolha um interface de loja (ou 0 para sair): ");
+		sb.append("Escolha um interface de loja: ");
 		return sb.toString();
 	}
 	
 	@Override
 	public void showUI() {
 		UIUtils uiUtils = UIUtils.INSTANCE;
-		System.out.println(getMenu());
+		System.out.print(getMenu());
 		Integer option = uiUtils.readInteger();
 		while (option != 0) {
 			if (option > 0 && option <= concessionariaInterfaces.size()) {
@@ -35,7 +36,7 @@ public class ConcessionariaText extends Concessionaria {
 			System.out.print(getMenu());
 			option = uiUtils.readInteger();
 		}
-		System.out.println("Bye!\n");
+		System.out.println("\nBye!\n");
 	}
 
 	@Override

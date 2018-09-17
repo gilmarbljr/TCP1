@@ -47,5 +47,10 @@ public class AtualizaDadosCommand extends Comando {
 			break;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return "Atualizar Dados";
+	}
 
 }

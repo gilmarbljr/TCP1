@@ -92,5 +92,63 @@ public class OperacoesImpl implements Operacoes {
 		}
 		return motos;
 	}
+
+	@Override
+	public void aplicarDescontoCarros(int desconto) {
+		for(Carro carro : database.getAllCarros()) {
+			descontar(carro, desconto);
+			System.out.println(carro.toString());
+			System.out.println();
+		}
+	}
+
+	@Override
+	public void aplicarDescontoMotos(int desconto) {
+		for(Moto moto : database.getAllMotos()) {
+			descontar(moto,desconto);
+			System.out.println(moto.toString());
+			System.out.println();
+		}		
+	}
+
+	@Override
+	public void aplicarDescontoAno(int desconto, int ano) {
+		for(Carro carro : database.getAllCarros()) {
+			if(carro.getAno() == ano) {
+				descontar(carro,desconto);
+				System.out.println(carro.toString());
+				System.out.println();
+			}
+		}
+		for(Moto moto : database.getAllMotos()) {
+			if(moto.getAno() == ano) {
+				descontar(moto, desconto);
+				System.out.println(moto.toString());
+				System.out.println();
+			}
+		}
+	}
+
+	@Override
+	public void aplicarDescontoPlaca(int desconto, String placa) {
+		for(Carro carro : database.getAllCarros()) {
+			if(carro.getPlaca().equals(placa)) {
+				descontar(carro,desconto);
+				System.out.println(carro.toString());
+				System.out.println();
+			}
+		}
+		for(Moto moto : database.getAllMotos()) {
+			if(moto.getPlaca().equals(placa)) {
+				descontar(moto, desconto);
+				System.out.println(moto.toString());
+				System.out.println();
+			}
+		}
+	}
+	
+	private void descontar(Automovel auto,int desconto) {
+		auto.setValor(auto.getValor()*((100.0 - desconto)/100.0));
+	}
 	
 }

@@ -4,6 +4,7 @@ import concessionaria.business.Operacoes;
 import concessionaria.business.OperacoesGerenciamento;
 import concessionaria.business.domain.Loja;
 import concessionaria.ui.text.command.AdicionaClientesCommand;
+import concessionaria.ui.text.command.AplicaDescontoCommand;
 import concessionaria.ui.text.command.AtualizaDadosCommand;
 import concessionaria.ui.text.command.FabricarAutomovelCommand;
 import concessionaria.ui.text.command.SaldoConcessionariaCommand;
@@ -16,5 +17,6 @@ public class LojaInterface extends ConcessionariaTextInterface{
 		this.adicionaAcao("2", new FabricarAutomovelCommand(this, impl));
 		this.adicionaAcao("3", new AdicionaClientesCommand(this, gerenciamento));
 		this.adicionaAcao("4", new AtualizaDadosCommand(this, gerenciamento));
+		this.adicionaAcao("5", new AplicaDescontoCommand(this, impl));
 	}
 }
