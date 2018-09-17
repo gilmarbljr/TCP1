@@ -1,5 +1,6 @@
 package concessionaria.business.impl;
 
+import concessionaria.business.domain.Funcionario;
 import concessionaria.business.OperacoesGerenciamento;
 import concessionaria.business.domain.Carro;
 import concessionaria.business.domain.Cliente;
@@ -199,5 +200,22 @@ public class OperacoesGerenciamentoImpl implements OperacoesGerenciamento{
 			System.out.println("Loja não cadastrada!");
 		}
 		return clienteLoja;
+	}
+
+	@Override
+	public Funcionario cadastrarFuncionario() {
+		UIUtils uiUtils = UIUtils.INSTANCE;
+		Funcionario funcionario = null;
+		System.out.print("Digite o nome do funcionario: ");
+		String nome = uiUtils.readString();
+		if(nome != null && !nome.equals("")) {
+			System.out.print("Digite a idade: ");
+			int idade = uiUtils.readInteger();
+			if(idade > 0) {
+				funcionario = new Funcionario(nome, idade);
+				database.save(funcionario);
+			}
+		}
+		return funcionario;
 	}
 }

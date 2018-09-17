@@ -111,6 +111,15 @@ public class Database {
 			oldID = 0;
 			Cliente c1 = new Cliente(l1.getNome(), 0, ++oldID);
 			save(c1);
+			Cliente c2 = new Cliente("Josebaldo",30, ++oldID);
+			save(c2);
+			
+			//Funcionarios
+			oldID = 0;
+			Funcionario f1 = new Funcionario("Gilmar", 23);
+			save(f1);
+			Funcionario f2 = new Funcionario("Marlize", 20);
+			save(f2);
 			
 			//Carros
 			oldID = 0;

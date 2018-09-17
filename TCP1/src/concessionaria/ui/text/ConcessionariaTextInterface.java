@@ -19,7 +19,7 @@ public abstract class ConcessionariaTextInterface extends ConcessionariaInterfac
 		String comandoChave = null;
 		do{
 			System.out.println();
-			System.out.println(getMenu());
+			System.out.print(getMenu());
 			comandoChave = uiUtils.readString();
 			Comando comando = (Comando) acoes.get(comandoChave);
 			if(comando != null) {
