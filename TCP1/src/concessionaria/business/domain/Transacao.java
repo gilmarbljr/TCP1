@@ -3,10 +3,10 @@ package concessionaria.business.domain;
 import java.util.Date;
 
 public abstract class Transacao {
-	private Cliente cliente;
-	private double montante;
-	private Date data;
-	private Loja loja;
+	protected Cliente cliente;
+	protected double montante;
+	protected Date data;
+	protected Loja loja;
 	
 	public Transacao(Cliente cliente, double montante, Loja loja) {
 		this.cliente = cliente;
@@ -30,5 +30,14 @@ public abstract class Transacao {
 	
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+	public void setData() {
+		this.data = new Date(System.currentTimeMillis());
+	}
+	
+	@Override
+	public String toString() {
+		return "Cliente: " + cliente.getNome() + "\nValor: " + this.montante + "\nLoja: " + loja.getNome() + "\n";
 	}
 }

@@ -27,6 +27,6 @@ public class Funcionario extends Pessoa{
 	
 	@Override
 	public String toString() {
-		return "Nome: "+getNome()+"\nIdade: "+getIdade()+"\nVendas: "+getVendas();
+		return "Nome: "+getNome()+"\nIdade: "+getIdade()+"\nVendas: "+getVendas() + "\n";
 	}
 }

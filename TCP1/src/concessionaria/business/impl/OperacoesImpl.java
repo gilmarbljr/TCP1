@@ -67,9 +67,13 @@ public class OperacoesImpl implements Operacoes {
 		double valor = uiUtil.readDouble();
 		for (int i = 0; i < quantidade; i++) {
 			String placa = "LOJA"+(database.getAllCarros().size()+1);
-			Carro carro = new Carro(nome, ano, portas,valor,placa);
-			database.save(carro);
-			carros.add(carro);
+			try {
+				Carro carro = new Carro(nome, ano, portas,valor,placa);
+				database.save(carro);
+				carros.add(carro);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 		return carros;
 	}
@@ -89,9 +93,13 @@ public class OperacoesImpl implements Operacoes {
 		double valor = uiUtil.readDouble();
 		for (int i = 0; i < quantidade; i++) {
 			String placa = "LOJA"+(database.getAllCarros().size()+1);
-			Moto moto = new Moto(nome, ano, rodas,valor,placa);
-			database.save(moto);
-			motos.add(moto);
+			try {
+				Moto moto = new Moto(nome, ano, rodas,valor,placa);
+				database.save(moto);
+				motos.add(moto);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 		return motos;
 	}
@@ -151,7 +159,11 @@ public class OperacoesImpl implements Operacoes {
 	}
 	
 	private void descontar(Automovel auto,int desconto) {
-		auto.setValor(auto.getValor()*((100.0 - desconto)/100.0));
+		try {
+			auto.setValor(auto.getValor()*((100.0 - desconto)/100.0));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	@Override

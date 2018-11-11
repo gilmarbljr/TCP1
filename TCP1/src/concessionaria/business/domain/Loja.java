@@ -10,7 +10,7 @@ public class Loja {
 	}
 	
 	public String toString() {
-		return getClass().getSimpleName() + " - " + getNome() + " " + getId();
+		return getClass().getSimpleName() + " - " + getNome() + " " + getId()+ "\n";
 	}
 
 	public String getNome() {
@@ -23,5 +23,9 @@ public class Loja {
 
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 }

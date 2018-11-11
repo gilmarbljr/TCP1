@@ -11,6 +11,8 @@ public class Cliente extends Pessoa {
 	private List<Compra> compras;
 	private List<Venda> vendas;
 	private List<Transferencia> transferencias;
+	private List<Carro> carros;
+	private List<Moto> motos;
 	
 	public Cliente(String nome, int idade, int cadastro) {
 		super(nome,idade);
@@ -19,6 +21,8 @@ public class Cliente extends Pessoa {
 		this.compras = new ArrayList<>();
 		this.vendas = new ArrayList<>();
 		this.transferencias = new ArrayList<>();
+		this.carros = new ArrayList<>();
+		this.motos = new ArrayList<>();
 	}
 	
 	public int getCadastro() {
@@ -35,6 +39,15 @@ public class Cliente extends Pessoa {
 	}
 	public double getMontante() {
 		return montante;
+	}
+	public List<Carro> getCarros() {
+		return carros;
+	}
+	public List<Moto> getMotos() {
+		return motos;
+	}
+	public void setCadastro(int cadastro) {
+		this.cadastro = cadastro;
 	}
 	
 	public List<Transacao> getTransacoes() {
@@ -100,6 +113,6 @@ public class Cliente extends Pessoa {
 	
 	@Override
 	public String toString() {
-		return "Cadastro: "+getCadastro()+"\nNome: "+getNome()+"\nIdade: "+ getIdade()+"\nSaldo: "+getMontante();
+		return "Cadastro: "+getCadastro()+"\nNome: "+getNome()+"\nIdade: "+ getIdade()+"\nSaldo: "+getMontante()+"\n";
 	}
 }

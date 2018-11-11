@@ -2,6 +2,7 @@ package concessionaria.business.impl;
 
 import concessionaria.business.domain.Funcionario;
 import concessionaria.business.OperacoesGerenciamento;
+import concessionaria.business.ValoresException;
 import concessionaria.business.domain.Carro;
 import concessionaria.business.domain.Cliente;
 import concessionaria.business.domain.Loja;
@@ -84,27 +85,48 @@ public class OperacoesGerenciamentoImpl implements OperacoesGerenciamento{
 			case 1:
 				System.out.print("Digite a nova placa: ");
 				String novaPlaca = uiUtils.readString();
-				carro.emplacar(novaPlaca);
+				try {
+					carro.emplacar(novaPlaca);
+				} catch (ValoresException e) {
+					// TODO: handle exception
+				}
 				break;
 			case 2:
 				System.out.print("Digite o novo nome: ");
 				String nome = uiUtils.readString();
-				carro.setNome(nome);
+				try {
+					carro.setNome(nome);
+				} catch (ValoresException e) {
+					// TODO: handle exception
+				}
 				break;
 			case 3:
 				System.out.print("Digite o ano: ");
 				int ano = uiUtils.readInteger();
-				carro.setAno(ano);
+				try {
+					carro.setAno(ano);
+				} catch (ValoresException e) {
+					// TODO: handle exception
+				}
+				
 				break;
 			case 4:
 				System.out.print("Digite o numero de portas: ");
 				int portas = uiUtils.readInteger();
-				carro.setPortas(portas);
+				try {
+					carro.setPortas(portas);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				break;
 			case 5:
 				System.out.print("Digite o novo valor: ");
 				double valor = uiUtils.readDouble();
-				carro.setValor(valor);
+				try {
+					carro.setValor(valor);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			default:
 				System.out.println("Opcão invalida!");
 				break;
@@ -130,27 +152,47 @@ public class OperacoesGerenciamentoImpl implements OperacoesGerenciamento{
 			case 1:
 				System.out.print("Digite a nova placa: ");
 				String novaPlaca = uiUtils.readString();
-				moto.emplacar(novaPlaca);
+				try {
+					moto.emplacar(novaPlaca);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				break;
 			case 2:
 				System.out.print("Digite o novo nome: ");
 				String nome = uiUtils.readString();
-				moto.setNome(nome);
+				try {
+					moto.setNome(nome);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				break;
 			case 3:
 				System.out.print("Digite o ano: ");
 				int ano = uiUtils.readInteger();
-				moto.setAno(ano);
+				try {
+					moto.setAno(ano);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				break;
 			case 4:
 				System.out.print("Digite o numero de rodas: ");
 				int rodas = uiUtils.readInteger();
-				moto.setRodas(rodas);
+				try {
+					moto.setRodas(rodas);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				break;
 			case 5:
 				System.out.print("Digite o novo valor: ");
 				double valor = uiUtils.readDouble();
-				moto.setValor(valor);
+				try {
+					moto.setValor(valor);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			default:
 				System.out.println("Opcão invalida!");
 				break;
