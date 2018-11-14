@@ -3,6 +3,8 @@ package concessionaria.business.impl;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.sun.istack.internal.Pool.Impl;
+
 import concessionaria.business.Operacoes;
 import concessionaria.business.ValoresException;
 import concessionaria.business.domain.Venda;
@@ -217,6 +219,24 @@ public class OperacoesImpl implements Operacoes {
 		System.out.print("Digite a opcao de compra: ");
 		opcao = uiUtils.readInteger();
 		return autos.get(opcao-1);
+	}
+	
+	public String funcionarioDoMes() {
+		String nomeFuncionario = "";
+		ArrayList<Funcionario> funcionarios = new ArrayList<>();
+		
+		funcionarios.addAll(database.getAllFuncionarios());
+		Funcionario fMES = null;
+		if(!funcionarios.isEmpty()) {
+			fMES = funcionarios.get(0);
+			for (Funcionario f : funcionarios) {
+				if (fMES.getVendas() < f.getVendas()) {
+					fMES = f;
+				}
+			}
+		}
+		nomeFuncionario = fMES.getNome();
+		return nomeFuncionario;
 	}
 	
 }

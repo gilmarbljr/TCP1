@@ -16,4 +16,5 @@ public interface Operacoes {
 	public void aplicarDescontoAno(int desconto, int ano);
 	public void aplicarDescontoPlaca(int desconto, String placa);
 	public Venda efetuarVenda(Loja loja);
+	public String funcionarioDoMes();
 }

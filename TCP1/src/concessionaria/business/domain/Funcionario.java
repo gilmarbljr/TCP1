@@ -8,6 +8,11 @@ public class Funcionario extends Pessoa{
 		super(nome, idade);
 		this.setVendas(0);
 	}
+	
+	public Funcionario(String nome, int idade, int vendas) {
+		super(nome, idade);
+		this.setVendas(vendas);
+	}
 
 	public int getVendas() {
 		return vendas;

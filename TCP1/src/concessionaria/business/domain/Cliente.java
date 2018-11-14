@@ -25,6 +25,17 @@ public class Cliente extends Pessoa {
 		this.motos = new ArrayList<>();
 	}
 	
+	public Cliente(String nome, int idade, int cadastro, double montante) {
+		super(nome,idade);
+		this.cadastro = cadastro;
+		this.montante = montante;
+		this.compras = new ArrayList<>();
+		this.vendas = new ArrayList<>();
+		this.transferencias = new ArrayList<>();
+		this.carros = new ArrayList<>();
+		this.motos = new ArrayList<>();
+	}
+	
 	public int getCadastro() {
 		return cadastro;
 	}

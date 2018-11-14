@@ -13,21 +13,25 @@ import concessionaria.business.domain.Loja;
 import concessionaria.business.domain.Moto;
 
 public class SQLDatabase {
+	
 	private Statement stm;
     private ResultSet rs;
+    
     private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String SERVER = "192.168.25.100:3306";
     private final String BANCO = "trabalho";
     private final String URL = "jdbc:mysql://"+SERVER+"/"+BANCO;
     private final String USER = "trabalho";
     private final String SENHA = "Trabalho";
-    private final String GET_FUNCIONARIOS = "Trabalho";
-    private final String GET_CLIENTES = "Trabalho";
-    private final String GET_CARROS = "Trabalho";
-    private final String GET_MOTOS = "Trabalho";
-    private final String GET_LOJAS = "Trabalho";
+    private final String GET_FUNCIONARIOS = "Trabalho"; //Querys
+    private final String GET_CLIENTES = "Trabalho"; //Querys
+    private final String GET_CARROS = "Trabalho"; //Querys
+    private final String GET_MOTOS = "Trabalho"; //Querys
+    private final String GET_LOJAS = "Trabalho"; //Querys
     private final String NOME = "NOME";
     private final String IDADE = "IDADE";
+    private final String MONTANTE = "MONTANTE";
+    private final String VENDAS = "VENDAS";
     private final String PORTAS = "PORTAS";
     private final String RODAS = "RODAS";
     private final String ANO = "ANO";
@@ -180,7 +184,7 @@ public class SQLDatabase {
     	try {
 			if(rs.first()) {
 				do {
-					Funcionario f = new Funcionario(rs.getString(NOME), rs.getInt(IDADE));
+					Funcionario f = new Funcionario(rs.getString(NOME), rs.getInt(IDADE), rs.getInt(VENDAS));
 					save(f);
 				} while (rs.next());
 			}
@@ -197,7 +201,7 @@ public class SQLDatabase {
     		int oldID = 0;
 			if(rs.first()) {
 				do {
-					Cliente c = new Cliente(rs.getString(NOME), rs.getInt(IDADE), ++oldID);
+					Cliente c = new Cliente(rs.getString(NOME), rs.getInt(IDADE), ++oldID, rs.getDouble(MONTANTE));
 					save(c);
 				} while (rs.next());
 			}
