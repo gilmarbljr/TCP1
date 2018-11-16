@@ -3,7 +3,7 @@ package concessionaria.ui.text.command;
 import concessionaria.business.Operacoes;
 import concessionaria.ui.ConcessionariaInterface;
 
-public class FuncionarioDoMesCommand extends Comando {
+public class FuncionarioDoMesCommand extends Comando{
 	
 	private final Operacoes operacoes;
 

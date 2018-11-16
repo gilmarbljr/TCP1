@@ -18,4 +18,5 @@ public interface Operacoes {
 	public void aplicarDescontoPlaca(int desconto, String placa);
 	public Venda efetuarVenda(Loja loja);
 	public Transferencia efetuarTransferencia(Loja loja);
+	public String funcionarioDoMes();
 }

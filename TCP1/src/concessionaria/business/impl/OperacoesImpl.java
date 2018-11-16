@@ -292,4 +292,22 @@ public class OperacoesImpl implements Operacoes {
 		return escolha;
 	}
 	
+	public String funcionarioDoMes() {
+		String nomeFuncionario = "";
+		ArrayList<Funcionario> funcionarios = new ArrayList<>();
+		
+		funcionarios.addAll(database.getAllFuncionarios());
+		Funcionario fMES = null;
+		if(!funcionarios.isEmpty()) {
+			fMES = funcionarios.get(0);
+			for (Funcionario f : funcionarios) {
+				if (fMES.getVendas() < f.getVendas()) {
+					fMES = f;	
+				}
+			}
+		}
+		nomeFuncionario = fMES.getNome();
+		return nomeFuncionario;
+	}
+	
 }
