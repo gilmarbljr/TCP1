@@ -13,21 +13,19 @@ import concessionaria.business.domain.Loja;
 import concessionaria.business.domain.Moto;
 
 public class SQLDatabase {
-	
 	private Statement stm;
     private ResultSet rs;
-    
     private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String SERVER = "192.168.25.100:3306";
-    private final String BANCO = "trabalho";
+    private final String SERVER = "192.168.25.100";
+    private final String BANCO = "TRABALHO";
     private final String URL = "jdbc:mysql://"+SERVER+"/"+BANCO;
     private final String USER = "trabalho";
     private final String SENHA = "Trabalho";
-    private final String GET_FUNCIONARIOS = "Trabalho"; //Querys
-    private final String GET_CLIENTES = "Trabalho"; //Querys
-    private final String GET_CARROS = "Trabalho"; //Querys
-    private final String GET_MOTOS = "Trabalho"; //Querys
-    private final String GET_LOJAS = "Trabalho"; //Querys
+    private final String GET_FUNCIONARIOS = "SELECT * FROM FUNCIONARIOS";
+    private final String GET_CLIENTES = "SELECT * FROM CLIENTES";
+    private final String GET_CARROS = "SELECT * FROM CARROS";
+    private final String GET_MOTOS = "SELECT * FROM MOTOS";
+    private final String GET_LOJAS = "SELECT * FROM LOJA";
     private final String NOME = "NOME";
     private final String IDADE = "IDADE";
     private final String MONTANTE = "MONTANTE";
@@ -143,6 +141,8 @@ public class SQLDatabase {
         } catch (SQLException ex) {
         	System.out.println(ex.getMessage());
         }
+        catch (Exception e) {
+		}
     }
     
     private void desconecta (){
@@ -162,9 +162,9 @@ public class SQLDatabase {
     }
     
     private void getSQLLojas() {
-    	conexao();
-    	executaSQL(GET_LOJAS);
     	try {
+    		conexao();
+        	executaSQL(GET_LOJAS);
     		int oldID = 0;
 			if(rs.first()) {
 				do {
@@ -172,32 +172,37 @@ public class SQLDatabase {
 					save(l);
 				} while (rs.next());
 			}
+			desconecta();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-    	desconecta();
+    	catch (Exception e) {
+		}
     }
     
     private void getSQLFuncionarios() {
-    	conexao();
-    	executaSQL(GET_FUNCIONARIOS);
     	try {
+    		conexao();
+    		executaSQL(GET_FUNCIONARIOS);
 			if(rs.first()) {
 				do {
 					Funcionario f = new Funcionario(rs.getString(NOME), rs.getInt(IDADE), rs.getInt(VENDAS));
 					save(f);
 				} while (rs.next());
 			}
+	    	desconecta();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-    	desconecta();
+    	catch (Exception e) {
+			// TODO: handle exception
+		}
     }
     
     private void getSQLClientes() {
-    	conexao();
-    	executaSQL(GET_CLIENTES);
     	try {
+    		conexao();
+        	executaSQL(GET_CLIENTES);
     		int oldID = 0;
 			if(rs.first()) {
 				do {
@@ -205,47 +210,56 @@ public class SQLDatabase {
 					save(c);
 				} while (rs.next());
 			}
+	    	desconecta();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-    	desconecta();
+    	catch (Exception e) {
+			// TODO: handle exception
+		}
     }
     
     private void getSQLCarros() {
-    	conexao();
-    	executaSQL(GET_CARROS);
     	try {
+    		conexao();
+        	executaSQL(GET_CARROS);
 			if(rs.first()) {
 				do {
 					Carro c = new Carro(rs.getString(NOME), rs.getInt(ANO), rs.getInt(PORTAS), rs.getDouble(VALOR), rs.getString(PLACA));
 					save(c);
 				} while (rs.next());
 			}
+	    	desconecta();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
     	catch (ValoresException e) {
     		System.out.println(e.getMessage());
 		}
-    	desconecta();
+    	catch (Exception e) {
+			// TODO: handle exception
+		}
     }
     
     private void getSQLMotos() {
-    	conexao();
-    	executaSQL(GET_MOTOS);
     	try {
+    		conexao();
+        	executaSQL(GET_MOTOS);
 			if(rs.first()) {
 				do {
 					Moto m = new Moto(rs.getString(NOME), rs.getInt(ANO), rs.getInt(RODAS), rs.getDouble(VALOR), rs.getString(PLACA));
 					save(m);
 				} while (rs.next());
 			}
+	    	desconecta();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
     	catch (ValoresException e) {
     		System.out.println(e.getMessage());
 		}
-    	desconecta();
+    	catch (Exception e) {
+			// TODO: handle exception
+		}
     }
 }

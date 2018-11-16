@@ -7,13 +7,13 @@ import concessionaria.business.domain.Carro;
 import concessionaria.business.domain.Cliente;
 import concessionaria.business.domain.Loja;
 import concessionaria.business.domain.Moto;
-import concessionaria.data.Database;
+import concessionaria.data.SQLDatabase;
 import concessionaria.ui.text.UIUtils;
 
 public class OperacoesGerenciamentoImpl implements OperacoesGerenciamento{
-	private final Database database;
+	private final SQLDatabase database;
 	
-	public OperacoesGerenciamentoImpl(Database database) {
+	public OperacoesGerenciamentoImpl(SQLDatabase database) {
 		this.database = database;
 	}
 
@@ -260,5 +260,4 @@ public class OperacoesGerenciamentoImpl implements OperacoesGerenciamento{
 		}
 		return funcionario;
 	}
-	
 }

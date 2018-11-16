@@ -122,6 +122,44 @@ public class Cliente extends Pessoa {
 		return valor <= this.montante;
 	}
 	
+	public void adicionaAutomovel(Automovel auto) {
+		if (auto instanceof Carro) {
+			adicionaCarro((Carro) auto);
+		}
+		else {
+			if (auto instanceof Moto) {
+				adicionaMoto((Moto) auto);
+			}
+		}
+	}
+	
+	private void adicionaCarro(Carro carro) {
+		this.carros.add(carro);
+	}
+	
+	private void adicionaMoto(Moto moto) {
+		this.motos.add(moto);
+	}
+	
+	public void removeAutomovel(Automovel auto) {
+		if (auto instanceof Carro) {
+			removeCarro((Carro) auto);
+		}
+		else {
+			if (auto instanceof Moto) {
+				removeMoto((Moto) auto);
+			}
+		}
+	}
+	
+	private void removeCarro(Carro carro) {
+		this.carros.add(carro);
+	}
+	
+	private void removeMoto(Moto moto) {
+		this.motos.add(moto);
+	}
+	
 	@Override
 	public String toString() {
 		return "Cadastro: "+getCadastro()+"\nNome: "+getNome()+"\nIdade: "+ getIdade()+"\nSaldo: "+getMontante()+"\n";

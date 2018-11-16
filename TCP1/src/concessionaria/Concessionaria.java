@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import concessionaria.business.domain.Loja;
 import concessionaria.business.impl.OperacoesGerenciamentoImpl;
 import concessionaria.business.impl.OperacoesImpl;
-import concessionaria.data.Database;
+import concessionaria.data.SQLDatabase;
 import concessionaria.ui.ConcessionariaInterface;
 
 public abstract class Concessionaria {
@@ -22,7 +22,7 @@ public abstract class Concessionaria {
 	}
 	
 	public Concessionaria() {
-		Database database = new Database();
+		SQLDatabase database = new SQLDatabase();
 		
 		OperacoesImpl impl = new OperacoesImpl(database);
 		OperacoesGerenciamentoImpl gerenciamentoImpl = new OperacoesGerenciamentoImpl(database);

@@ -3,8 +3,6 @@ package concessionaria.business.impl;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.sun.istack.internal.Pool.Impl;
-
 import concessionaria.business.Operacoes;
 import concessionaria.business.ValoresException;
 import concessionaria.business.domain.Venda;
@@ -14,13 +12,14 @@ import concessionaria.business.domain.Cliente;
 import concessionaria.business.domain.Funcionario;
 import concessionaria.business.domain.Loja;
 import concessionaria.business.domain.Moto;
-import concessionaria.data.Database;
+import concessionaria.business.domain.Transferencia;
+import concessionaria.data.SQLDatabase;
 import concessionaria.ui.text.UIUtils;
 
 public class OperacoesImpl implements Operacoes {
-	private final Database database;
+	private final SQLDatabase database;
 	
-	public OperacoesImpl(Database database) {
+	public OperacoesImpl(SQLDatabase database) {
 		this.database = database;
 	}
 
@@ -59,7 +58,7 @@ public class OperacoesImpl implements Operacoes {
 		System.out.println("Digite o nome do carro: ");
 		String nome = uiUtil.readString();
 		@SuppressWarnings("deprecation")
-		int ano = (new Date(System.currentTimeMillis())).getYear();
+		int ano = (new Date(System.currentTimeMillis())).getYear() + 1900;
 		System.out.println("Digite a quantidade de veiculos: ");
 		int quantidade = uiUtil.readInteger();
 		ArrayList<Carro> carros = new ArrayList<>(quantidade);
@@ -85,7 +84,7 @@ public class OperacoesImpl implements Operacoes {
 		System.out.println("Digite o nome da moto: ");
 		String nome = uiUtil.readString();
 		@SuppressWarnings("deprecation")
-		int ano = (new Date(System.currentTimeMillis())).getYear();
+		int ano = (new Date(System.currentTimeMillis())).getYear() + 1900;
 		System.out.println("Digite a quantidade de veiculos: ");
 		int quantidade = uiUtil.readInteger();
 		ArrayList<Moto> motos = new ArrayList<>(quantidade);
@@ -184,10 +183,24 @@ public class OperacoesImpl implements Operacoes {
 				if (cliente instanceof Cliente) {
 					Automovel auto = selecionarAutomovel(cliente);
 					try {
-						cliente.compra(loja, auto.getValor());
-						venda = new Venda(cliente, auto.getValor(), loja);
-						clienteLoja.venda(loja, auto.getValor());
-						funcionario.incrementaVendas();
+						if(auto != null) {
+							cliente.compra(loja, auto.getValor());
+							venda = new Venda(cliente, auto.getValor(), loja);
+							clienteLoja.venda(loja, auto.getValor());
+							funcionario.incrementaVendas();
+							cliente.adicionaAutomovel(auto);
+							if(auto instanceof Carro) {
+								database.removeCarro(auto.getPlaca());
+							}
+							else {
+								if (auto instanceof Moto) {
+									database.removeMoto(auto.getPlaca());
+								}
+							}
+						}
+						else {
+							System.out.println("Operação cancelada\n");
+						}
 					} catch (ValoresException e) {
 						System.out.println(e.getMessage());
 					}
@@ -217,26 +230,66 @@ public class OperacoesImpl implements Operacoes {
 			System.out.println(++opcao + " - "+auto.getNome()+" "+auto.getAno()+" "+auto.getValor()+"");
 		}
 		System.out.print("Digite a opcao de compra: ");
+		opcao = 0;
 		opcao = uiUtils.readInteger();
-		return autos.get(opcao-1);
+		Automovel escolha = null;
+		if(opcao > 0) {
+			opcao--;
+			escolha = autos.get(opcao);
+		}
+		return escolha;
 	}
 	
-	public String funcionarioDoMes() {
-		String nomeFuncionario = "";
-		ArrayList<Funcionario> funcionarios = new ArrayList<>();
-		
-		funcionarios.addAll(database.getAllFuncionarios());
-		Funcionario fMES = null;
-		if(!funcionarios.isEmpty()) {
-			fMES = funcionarios.get(0);
-			for (Funcionario f : funcionarios) {
-				if (fMES.getVendas() < f.getVendas()) {
-					fMES = f;
+	public Transferencia efetuarTransferencia(Loja loja) {
+		UIUtils uiUtils = UIUtils.INSTANCE;
+		Transferencia transferencia = null;
+		System.out.println("Informe o vendedor: ");
+		String vendedor = uiUtils.readString();
+		Cliente clienteVendedor = database.getCliente(vendedor);
+		if (clienteVendedor instanceof Cliente) {
+			System.out.println("Informe o comprador: ");
+			String comprador = uiUtils.readString();
+			Cliente clienteComprador = database.getCliente(comprador);
+			if(clienteComprador instanceof Cliente) {
+				Automovel auto = selecionaAutoCliente(clienteVendedor);
+				try {
+					if(auto != null) {
+						clienteComprador.venda(loja, auto.getValor());
+						transferencia = new Transferencia(clienteVendedor, clienteComprador, auto.getValor(), loja);
+						clienteVendedor.compra(loja, auto.getValor());
+						clienteComprador.adicionaAutomovel(auto);
+						clienteVendedor.removeAutomovel(auto);
+					}
+					else {
+						System.out.println("Operação cancelada\n");
+					}
+				} catch (ValoresException e) {
+					System.out.println(e.getMessage());
 				}
 			}
 		}
-		nomeFuncionario = fMES.getNome();
-		return nomeFuncionario;
+		return transferencia;
+	}
+	
+	private Automovel selecionaAutoCliente(Cliente cliente) {
+		UIUtils uiUtils = UIUtils.INSTANCE;
+		ArrayList<Automovel> autos = new ArrayList<>();
+		autos.addAll(cliente.getCarros());
+		
+		int opcao = 0;
+		System.out.println("\n0 - Cancelar");
+		for (Automovel auto : autos) {
+			System.out.println(++opcao + " - "+auto.getNome()+" "+auto.getAno()+" "+auto.getValor()+"");
+		}
+		System.out.print("Digite a opcao de compra: ");
+		opcao = 0;
+		opcao = uiUtils.readInteger();
+		Automovel escolha = null;
+		if(opcao > 0) {
+			opcao--;
+			escolha = autos.get(opcao);
+		}
+		return escolha;
 	}
 	
 }
